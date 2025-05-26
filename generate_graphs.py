@@ -1,3 +1,12 @@
+# Copyright (c) Universidad Politecnica Madrid, 2025
+# Authors: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
+# Dates:
+#  Creation: May. 17, 2025
+#  Modification: May 18, 2025
+# Documented by: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
+
+# generate_graphs.py
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
