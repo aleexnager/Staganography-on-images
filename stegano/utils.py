@@ -1,3 +1,10 @@
+# Copyright (c) Universidad Politecnica Madrid, 2025
+# Authors: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
+# Dates:
+#  Creation: Mar. 24, 2025
+#  Modification: Apr. 17, 2025
+# Documented by: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
+
 # stegano/utils.py
 
 def text_to_bits(text: str) -> str:
