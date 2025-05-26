@@ -2,7 +2,7 @@
 # Authors: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
 # Dates:
 #  Creation: Mar. 24, 2025
-#  Modification: Mar 24, 2025
+#  Modification: Mar. 24, 2025
 # Documented by: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
 
 # generate_differences.py
