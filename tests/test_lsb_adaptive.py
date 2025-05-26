@@ -15,13 +15,7 @@ from PIL import Image
 from stegano.entropy import compute_entropy_map, normalize_entropy_map
 from stegano.lsb_adaptive import encode_lsb_adaptive, decode_lsb_adaptive
 from stegano.utils import load_text_file
-from stegano.metrics import (
-    calculate_psnr,
-    calculate_ssim,
-    calculate_capacity,
-    calculate_pixels_modified_ratio,
-    calculate_bits_modified_ratio
-)
+from stegano.metrics import calculate_psnr, calculate_ssim, calculate_capacity, generate_heatmap, calculate_pixels_modified_ratio, calculate_bits_modified_ratio
 
 INPUT_DIR = "data/input"
 MESSAGE_DIR = "data/messages"
@@ -117,3 +111,15 @@ def test_lsb_adaptive_pipeline(image_name, message_name, share_results):
         "length": len(message),
         "method": "lsbadapt"
     })
+
+    # Generar y guardar el heatmap
+    heatmap_path = os.path.join(
+        "data", "heatmaps",
+        f"heatmap_lsbadapt_{image_name.replace('.png','')}_{message_name.replace('.txt','')}.png"
+    )
+    generate_heatmap(
+        os.path.join(INPUT_DIR, image_name),
+        out,
+        output_path=heatmap_path,
+        title=f"Heatmap LSBadapt: {image_name} / {message_name}"
+    )

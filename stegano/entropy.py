@@ -21,7 +21,7 @@ def compute_entropy_map(image: Image.Image, window_size: int = 3) -> np.ndarray:
     :param window_size: Tamaño de la ventana cuadrada para calcular la entropía.
     :return: Mapa de entropía como arreglo numpy de tipo float (bits).
     """
-    # Convertir a escala de grises y a matriz uint8
+    # Convertir a escala de grises
     gray = image.convert("L")
     arr = np.array(gray)
 

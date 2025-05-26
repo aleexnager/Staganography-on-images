@@ -10,7 +10,7 @@
 import os
 from PIL import Image
 import numpy as np
-from stegano.utils import text_to_bits, bits_to_text, add_delimiter, remove_delimiter
+from stegano.utils import text_to_bits, add_delimiter
 from stegano.entropy import compute_entropy_map, normalize_entropy_map
 
 def encode_lsb_optimized(image_path: str,
@@ -19,17 +19,22 @@ def encode_lsb_optimized(image_path: str,
                          window_size: int = 3,
                          threshold: float = 0.5,
                          delimiter: str = "#####") -> None:
+    
+    # 1. Carga y preparación
     img = Image.open(image_path).convert("RGB")
     arr = np.array(img)
-    # Mapa de entropía normalizado
     ent_norm = normalize_entropy_map(compute_entropy_map(img, window_size))
     mask_positions = np.argwhere(ent_norm >= threshold)
+
+    # 2. Comprobar capacidad
     if mask_positions.size == 0:
         raise ValueError("No se encontraron regiones con entropía suficiente.")
     bits = text_to_bits(add_delimiter(message, delimiter))
     total_bits = len(bits)
     if total_bits > len(mask_positions) * 3:
-        raise ValueError("El mensaje es demasiado largo para la capacidad disponible.")
+        raise ValueError("El mensaje es demasiado largo para la capacidad de la imagen.")
+    
+    # 3. Embedding LSB en píxeles seleccionados
     stego = arr.copy()
     bit_idx = 0
     for y, x in mask_positions:
@@ -38,6 +43,8 @@ def encode_lsb_optimized(image_path: str,
             if bit_idx < total_bits:
                 stego[y, x, c] = (stego[y, x, c] & 0xFE) | int(bits[bit_idx])
                 bit_idx += 1
+
+    # 4. Guardar imagen estego
     Image.fromarray(stego).save(output_path)
 
 
@@ -49,11 +56,11 @@ def decode_lsb_optimized(image_path: str,
     Extrae un mensaje oculto usando LSB en píxeles seleccionados según entropía local
     calculada sobre la imagen original.
     """
-    # Cargar imagen stego y su array
+    # 1. Cargar imagenes estego y original
     stego_img = Image.open(image_path).convert("RGB")
     stego_arr = np.array(stego_img)
 
-    # Derivar ruta de la imagen original a partir del nombre de archivo
+    # 2. Derivar ruta de la imagen original a partir del nombre de archivo
     base = os.path.basename(image_path)
     if base.startswith("lsbopt_"):
         orig_name = base[len("lsbopt_"):]
@@ -64,11 +71,11 @@ def decode_lsb_optimized(image_path: str,
     orig_path = os.path.join("data", "input", orig_name)
     orig_img = Image.open(orig_path).convert("RGB")
 
-    # Calcular el mismo mapa de entropía sobre la original
+    # 3. Reconstrucción de la máscara de entropía
     ent_norm = normalize_entropy_map(compute_entropy_map(orig_img, window_size))
     mask_positions = np.argwhere(ent_norm >= threshold)
 
-    # Extraer bit a bit, con parada al encontrar el delimitador
+    # 4. Extracción bit a bit con parada en delimitador
     bits = ""
     message = ""
     for y, x in mask_positions:
@@ -82,5 +89,5 @@ def decode_lsb_optimized(image_path: str,
                 if message.endswith(delimiter):
                     return message[:-len(delimiter)]
 
-    # Si nunca vimos el delimitador, devolvemos todo lo leído
+    # 5. Si nunca vimos el delimitador, devolvemos todo lo leído
     return message
