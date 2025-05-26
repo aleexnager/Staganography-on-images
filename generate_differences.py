@@ -1,3 +1,12 @@
+# Copyright (c) Universidad Politecnica Madrid, 2025
+# Authors: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
+# Dates:
+#  Creation: Mar. 24, 2025
+#  Modification: Mar 24, 2025
+# Documented by: Alejandro Náger Fernández-Calvo <a.nager@alumnos.upm.es>
+
+# generate_differences.py
+
 import os
 import numpy as np
 from PIL import Image
