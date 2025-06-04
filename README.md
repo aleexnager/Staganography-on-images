@@ -12,14 +12,14 @@
 Es importante asegurarse que todos los ejecutables **.py** tienen permiso de ejecución.
 
 **Tests atomáticos**
-´´´
+```
 pytest tests/ -v
-´´´
+```
 
 **Generar más gráficas**
 Es importante tener el fichero _results.csv_ (/data/results/results.csv)
-´´´
+```
 python3 graph_psnr.py
-´´´
+```
 
 **De forma manual consultar sección 3.6.1 de la memoria**
