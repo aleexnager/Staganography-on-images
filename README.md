@@ -1,6 +1,3 @@
-> [!CAUTION]\
-> Este contenido está bajo licencia compartida con la Escuela Técnica Superior de Ingenieros Informáticos (ETSIINF) de la Universidad Politécnica de Madrid (UPM). Queda prohibida la publicación del contenido de este repositorio. El plagio o intento de copia de este material en cualquier ámbito podrá derivar en acciones legales tomadas por la universidad. Este contenido es únicamente informativo y de uso didáctico, el autor de este proyecto no se hace responsables del mal uso que se le pueda dar al contenido de este repositorio. ([LICENSE](/LICENSE))
-
 # Análisis y optimización de algoritmos de esteganografía basados en teoría de la información
 
 ### Autor:
